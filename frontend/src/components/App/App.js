@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import About from 'components/About/About'
-const Home = () => <h1>Home</h1>
-
+import Home from 'components/Home/Home'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <div>HEADER</div>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
+              </Switch>
+          </div>
+          <div>Footer</div>
         </div>
       </BrowserRouter>
     );
