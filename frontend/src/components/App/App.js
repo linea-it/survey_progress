@@ -8,15 +8,15 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          <div>HEADER</div>
-          <div>
+        <div className="layout-wrapper">
+          <div className="layout-header"></div>
+          {/* <div className="layout-sidebar"></div> */}
+          <div className="layout-content">
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/about" component={About} />
-              </Switch>
+            </Switch>
           </div>
-          <div>Footer</div>
         </div>
       </BrowserRouter>
     );
