@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Elevation, Button, FormGroup, InputGroup, MenuItem} from '@blueprintjs/core'
 import { Select } from "@blueprintjs/select";
 import { DateRangeInput } from "@blueprintjs/datetime";
+import { DateRangePicker } from "@blueprintjs/datetime";
 import moment from "moment";
 class HomeForm extends Component {
   state = this.initialState;
@@ -37,6 +38,7 @@ class HomeForm extends Component {
   render() {
     return (
     <Card interactive={true} elevation={Elevation.TWO}>
+
       <FormGroup
         label="Date Period"
         labelFor="inp-date-period"
