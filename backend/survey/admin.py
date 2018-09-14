@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Exposure
+
+@admin.register(Exposure)
+class ExposureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nite', 'expnum', 'ccdnum', 'band', 'filename',)
+    search_fields = ('expnum', 'ccdnum', 'filename',)
