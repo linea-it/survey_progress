@@ -3,22 +3,26 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import About from 'components/About/About'
 import Home from 'components/Home/Home'
-
+import Header from 'components/Header/Header'
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <div className="root bp3-dark">
+      
         <div className="layout-wrapper">
-          <div className="layout-header"></div>
+          <Header />
           {/* <div className="layout-sidebar"></div> */}
           <div className="layout-content">
+          <BrowserRouter>          
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/about" component={About} />
             </Switch>
+            </BrowserRouter>
           </div>
         </div>
-      </BrowserRouter>
+
+      </div>
     );
   }
 }

@@ -1,15 +1,79 @@
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "~@blueprintjs/select/lib/css/blueprint-select.css";
+@import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css";
+@import "~@blueprintjs/table/lib/css/table.css";
+/* @import "~@blueprintjs/core/lib/scss/variables"; */
 
 .layout-wrapper {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
+  background-color: #293742;
+  min-height: 100vh;
 }
 
-.layout-header {
-  background-color: aqua;
-  height: 70px;
-}
 .layout-content {
-  background-color: coral;
-  display: flex;
-  min-height: calc(100vh - 100px);
+  /* display: flex; */
 }
+
+.row-wrap {
+	/* flex-flow: row wrap; */
+}
+
+
+
+/* .container {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.item {
+  flex: 1;
+  margin: 5px
+}
+
+.wrap {
+	flex-wrap: wrap;
+}
+
+.grow1 {
+  flex-grow: 1
+}
+
+.grow2 {
+  flex-grow: 2
+}
+
+.grow3 {
+  flex-grow: 3
+}
+
+.grow4 {
+  flex-grow: 4
+}
+
+.grow5 {
+  flex-grow: 5
+}
+
+.grow6 {
+  flex-grow: 6
+}
+
+.stretch {
+  align-content: stretch;
+} */
+
+
+
+
+/* .teste {
+  background-color: aqua;
+  flex-grow: 2;
+  width: 400px;
+}
+
+.teste2 {
+  background-color:blue;
+} */
