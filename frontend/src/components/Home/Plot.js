@@ -10,9 +10,10 @@ class HomePlot extends Component {
 
   render() {
     return (
-    <Card interactive={true} elevation={Elevation.TWO}>
+      <div>
 
-    </Card>
+        
+      </div>
     );
   }
 }

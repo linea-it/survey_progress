@@ -37,43 +37,44 @@ class HomeForm extends Component {
 
   render() {
     return (
-    <Card interactive={true} elevation={Elevation.TWO}>
+      <div>
 
-      <FormGroup
-        label="Date Period"
-        labelFor="inp-date-period"
-      >
-      <div className="bp3-select">
-        <select >
-          <option value="1">Night</option>
-          <option value="2">Week</option>
-          <option value="3">Month</option>
-          <option value="4">Semester</option>
-          <option value="4">Year</option>
-        </select>
-      </div>      
-        {/* <InputGroup id="inp-date-period" placeholder="Placeholder text" /> */}
-        {/* <Select id="inp-date-period" 
-          items={[{data:'1', text:'teste'}]}
-          itemRenderer={this.itemRenderer}
-          >
-        </Select> */}
-      </FormGroup>
-      
-      <FormGroup
-        label="Date Range"
-        labelFor="inp-date-range"
-      >      
-        <DateRangeInput id="inp-date-range"
-          formatDate={date => moment(date).format("YYYY-MM-DD")}
-          // onChange={this.handleRangeChange}
-          parseDate={str => moment(str, "YYYY-MM-DD").toDate()}
-          value={[this.state.startDate, this.state.endDate]}
-          onChange={this.handleChangeInterval}
-        />
-      </FormGroup>
-      <Button>Submit</Button>
-    </Card>
+        TESTE 2
+        <FormGroup
+          label="Date Period"
+          labelFor="inp-date-period"
+        >
+        <div className="bp3-select">
+          <select >
+            <option value="1">Night</option>
+            <option value="2">Week</option>
+            <option value="3">Month</option>
+            <option value="4">Semester</option>
+            <option value="4">Year</option>
+          </select>
+        </div>      
+          {/* <InputGroup id="inp-date-period" placeholder="Placeholder text" /> */}
+          {/* <Select id="inp-date-period" 
+            items={[{data:'1', text:'teste'}]}
+            itemRenderer={this.itemRenderer}
+            >
+          </Select> */}
+        </FormGroup>
+        
+        <FormGroup
+          label="Date Range"
+          labelFor="inp-date-range"
+        >      
+          <DateRangeInput id="inp-date-range"
+            formatDate={date => moment(date).format("YYYY-MM-DD")}
+            // onChange={this.handleRangeChange}
+            parseDate={str => moment(str, "YYYY-MM-DD").toDate()}
+            value={[this.state.startDate, this.state.endDate]}
+            onChange={this.handleChangeInterval}
+          />
+        </FormGroup>
+        <Button>Submit</Button>
+      </div>
     );
   }
 }

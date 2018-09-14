@@ -19,8 +19,16 @@ class Home extends Component {
       // </div>      
 
       <div className="p-grid home-container ">
-          <div className="p-col-4"><HomeForm/></div>
-          <div className="p-col-8"><HomePlot/></div>
+          <div className="p-col-4">
+              <Card elevation={Elevation.TWO}>
+                <HomeForm/>
+              </Card>
+            </div>
+          <div className="p-col-8">
+            <Card elevation={Elevation.TWO}>
+              <HomePlot/>
+            </Card>
+          </div>
           <div className="p-col">
             <Card elevation={Elevation.TWO}>
               <HomeTable />
