@@ -7,40 +7,55 @@ services:
     restart: always
     env_file:
       - .env
-    # expose:
-    #   - 5432
+    expose:
+      - 5432
     volumes:
       - ./pg_data:/var/lib/postgresql/data
       - ./pg_backups:/pg_backups
       - ./database_subset:/data
+    networks:
+       - survey
 
   #Backend Django
   backend:
     build: ./backend
     image: survey_progress_backend
     env_file:
-      - .env    
+      - .env
     volumes:
       - ./backend:/app
       - ./log:/log
-      - ./archive:/archive      
+      - ./archive:/archive
     depends_on:
       - database
+    networks:
+       - survey
 
   # Frontend
   frontend:
+    # User id do ambiente de testing
+    user: 1000:1000
     build: ./frontend
     image: survey_progress_frontend
+    volumes:
+      - ./frontend:/app/
     env_file:
       - .env
-      
+
   nginx:
     image: nginx:latest
     ports:
-      - 80:8080
+      - 7001:8080
     volumes:
       - ./frontend/build:/var/www/frontend
       - ./nginx/conf.d:/etc/nginx/conf.d/default.conf:ro
       - ./log:/log
     depends_on:
       - backend
+      - frontend
+    networks:
+       - survey
+
+networks:
+  survey:
+

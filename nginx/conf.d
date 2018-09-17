@@ -11,7 +11,11 @@ server {
 
     # Api
     location /api/ {
-        proxy_pass http://api$request_uri;
+      proxy_pass http://api$request_uri;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Host $server_name;
+      proxy_set_header X-Real-IP $remote_addr;
     }
 
     location /static/rest_framework/ {
@@ -20,7 +24,11 @@ server {
 
     # Admin
     location /admin/ {
-        proxy_pass http://api$request_uri;
+      proxy_pass http://api$request_uri;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Host $server_name;
+      proxy_set_header X-Real-IP $remote_addr;
     }
 
     location /static/admin/ {
@@ -29,9 +37,9 @@ server {
 
 
     # ignore cache frontend
-    location ~* (service-worker\.js)$ {    
-        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';    
-        expires off;    
+    location ~* (service-worker\.js)$ {
+        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        expires off;
         proxy_no_cache 1;
     }
 
