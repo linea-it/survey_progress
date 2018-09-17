@@ -1,17 +1,43 @@
-server {
-    server_name localhost;
+upstream api {
+    server backend:8081;
+}
 
-    listen 80;
+server {
+
+    listen 8080;
 
     charset utf-8;
 
-    access_log  /log/nginx/guni-access.log;
-    error_log  /log/nginx/guni-error.log info;
+
+    # Api
+    location /api/ {
+        proxy_pass http://api$request_uri;
+    }
+
+    location /static/rest_framework/ {
+        proxy_pass http://api$request_uri;
+    }
+
+    # Admin
+    location /admin/ {
+        proxy_pass http://api$request_uri;
+    }
+
+    location /static/admin/ {
+        proxy_pass http://api$request_uri;
+    }
+
+
+    # ignore cache frontend
+    location ~* (service-worker\.js)$ {    
+        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';    
+        expires off;    
+        proxy_no_cache 1;
+    }
 
     location / {
-        proxy_pass http://frontend:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      root /var/www/frontend;
+      try_files $uri $uri/ /index.html;
     }
+
 }

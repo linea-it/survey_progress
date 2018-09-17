@@ -1,3 +1,3 @@
 #!/bin/sh
-
-yarn run serve
+yarn 
+yarn build
