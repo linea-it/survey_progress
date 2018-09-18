@@ -146,6 +146,12 @@ if not os.path.exists(MEDIA_TMP_DIR):
 
 MEDIA_TMP_URL = urllib.parse.urljoin(MEDIA_URL, 'tmp/')
 
+IMAGES_DIR = os.path.join(MEDIA_ROOT, "images")
+if not os.path.exists(IMAGES_DIR):
+    os.mkdir(IMAGES_DIR)
+
+IMAGES_URL = urllib.parse.urljoin(MEDIA_URL, 'images/')
+
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True

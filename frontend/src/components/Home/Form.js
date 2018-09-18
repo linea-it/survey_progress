@@ -38,8 +38,6 @@ class HomeForm extends Component {
   render() {
     return (
       <div>
-
-        TESTE 2
         <FormGroup
           label="Date Period"
           labelFor="inp-date-period"

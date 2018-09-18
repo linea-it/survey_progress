@@ -8,16 +8,6 @@ import 'primeflex/primeflex.css';
 class Home extends Component {
   render() {
     return (
-      // <div className="container  row-wrap">
-      //   <div className="item grow6">
-      //     <HomeForm />
-      //   </div>
-      //   <div className="item grow6">
-      //     <HomePlot/>
-      //   </div>
-      //   <HomePlot/>
-      // </div>      
-
       <div className="p-grid home-container ">
           <div className="p-col-4">
               <Card elevation={Elevation.TWO}>

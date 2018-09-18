@@ -8,7 +8,8 @@
 .layout-wrapper {
   /* display: flex; */
   /* flex-direction: column; */
-  background-color: #293742;
+  background-color: #ebf1f5;
+  /* background-color: #293742; */
   min-height: 100vh;
 }
 
@@ -20,7 +21,9 @@
 	/* flex-flow: row wrap; */
 }
 
-
+.stretch {
+  align-content: stretch;
+}
 
 /* .container {
   display: flex;

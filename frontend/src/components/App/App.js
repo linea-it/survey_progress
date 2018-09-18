@@ -4,10 +4,15 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import About from 'components/About/About'
 import Home from 'components/Home/Home'
 import Header from 'components/Header/Header'
+import ImageViewer from 'components/Image/Viewer'
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 class App extends Component {
   render() {
     return (
-      <div className="root bp3-dark">
+        <div className="root">
+      {/* // <div className="root bp3-dark"> */}
       
         <div className="layout-wrapper">
           <Header />
@@ -17,6 +22,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/about" component={About} />
+              <Route path="/image" component={ImageViewer} />
             </Switch>
             </BrowserRouter>
           </div>
