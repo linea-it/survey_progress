@@ -5,6 +5,6 @@ export class ExposureApi {
         this.api = process.env.REACT_APP_API;
     }
     getExposures({ page, pageSize, ordering, filters = [] }){
-        return axios.get(`${this.api}/api/exposure`)
+        return axios.get(`${this.api}exposure`)
     }
 }

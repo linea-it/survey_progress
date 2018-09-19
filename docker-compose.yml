@@ -2,32 +2,33 @@ version: '3'
 
 services:
   # Database
-  database:
-    image: postgres:9.6
-    restart: always
-    env_file:
-      - .env
-    expose:
-      - 5432
-    volumes:
-      - ./pg_data:/var/lib/postgresql/data
-      - ./pg_backups:/pg_backups
-      - ./database_subset:/data
-    networks:
-       - survey
+#  database:
+#    image: postgres:9.6
+#    restart: always
+#    env_file:
+#      - .env
+#    expose:
+#      - 5432
+#    volumes:
+#      - ./pg_data:/var/lib/postgresql/data
+#      - ./pg_backups:/pg_backups
+#      - ./database_subset:/data
+#    networks:
+#       - survey
 
   #Backend Django
   backend:
+    # user: 1000:1000
     build: ./backend
-    image: survey_progress_backend
+    image: survey_progress_backend    
     env_file:
       - .env
     volumes:
       - ./backend:/app
       - ./log:/log
       - ./archive:/archive
-    depends_on:
-      - database
+#    depends_on:
+#      - database
     networks:
        - survey
 
@@ -41,6 +42,8 @@ services:
       - ./frontend:/app/
     env_file:
       - .env
+    networks:
+       - survey
 
   nginx:
     image: nginx:latest
@@ -58,4 +61,3 @@ services:
 
 networks:
   survey:
-

@@ -7,6 +7,6 @@ COPY . .
 
 RUN yarn --ignore-optional
 
-RUN yarn run build
+# RUN yarn run build
 
 ENTRYPOINT ./entrypoint.sh

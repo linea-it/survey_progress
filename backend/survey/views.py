@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .models import Exposure
 from .serializers import ExposureSerializer
@@ -8,7 +9,7 @@ from .serializers import ExposureSerializer
 
 
 class ExposureViewSet(viewsets.ModelViewSet):
-
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (AllowAny,)
     queryset = Exposure.objects.all()
     serializer_class = ExposureSerializer
