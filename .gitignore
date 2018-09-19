@@ -6,3 +6,5 @@ log
 
 # Archive
 archive
+
+*.db
