@@ -15,5 +15,5 @@ class ExposureViewSet(viewsets.ModelViewSet):
     serializer_class = ExposureSerializer
     filter_fields = ('id', 'expnum', 'nite',)
     search_fields = ('id', 'expnum', 'nite')
-    ordering_fields = ('nite', 'expnum',)
-    ordering = ('-nite',)
+    ordering_fields = ('nite', 'expnum','ccdnum')
+    ordering = ('-nite','expnum', 'ccdnum')

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Cell, Column, Table, RegionCardinality } from "@blueprintjs/table";
 import {DataTable} from 'primereact/datatable'; 
+import { Button } from 'primereact/button';
 import {ExposureApi} from './ExposureApi';
 
 class HomeTable extends Component {
@@ -10,11 +12,42 @@ class HomeTable extends Component {
   get initialState() {
     return {
       data:[],
+      totalSize: 0,
       page: 1,
       sizePerPage: 10,
       loading: false,
+      sortField: 'nite',
+      sortOrder: 1,      
     };
   }
+
+  columns = [
+    {
+      field: 'nite',
+      header: 'Nite',
+      sortable: true,
+    },
+    {
+      field: 'expnum',
+      header: 'Exposure',
+      sortable: true,
+    },    
+    {
+      field: 'ccdnum',
+      header: 'CCD',
+      sortable: true,
+    },    
+    {
+      field: 'band',
+      header: 'Band',
+      sortable: true,
+    },        
+    {
+      field: 'path',
+      header: 'Filename',
+      sortable: true,
+    },    
+  ]
 
   componentDidMount() {
     this.fetchData(this.state.page, this.state.sizePerPage);
@@ -35,30 +68,76 @@ class HomeTable extends Component {
     });
   };
 
-  render() {
+  onView = row_id => {
+    console.log('onView', row_id)
+    // this.props.view_asteroid(asteroid_id);
+    const history = this.props.history;
+    history.push({ pathname: `/image/${row_id}` });    
+  };
+
+  actionTemplate = rowData => {
+    const row_id = rowData.id;
+    let btn_view = null;
+
+    btn_view = (
+      <Button
+        type="button"
+        label="View"
+        className="ui-button-info"
+        title="View"
+        onClick={() => this.onView(row_id)}
+      />
+    );
+
+
     return (
       <div>
-        <DataTable value={this.state.data} >
-            <Column field="nite" header="Nite" />
-            <Column field="expnum" header="Exposure" />
-            <Column field="ccdnum" header="CCD" />
-            <Column field="band" header="Band" />
-            <Column field="exptime" header="Exposure Time" />
-        </DataTable>
-        {/* <Table 
-          numRows={10}
-            enableColumnReordering={true}
-            selectionModes={RegionCardinality.ROWS_ONLY}
-            >
-            <Column name="Date time" />
-            <Column name="Nite" />
-            <Column name="Exposure" />
-            <Column name="CCD" />
-            <Column name="Band" />
-        </Table> */}
+        {btn_view}
+      </div>
+    );
+  };
+
+  render() {
+
+
+    const columns = this.columns.map((col, i) => {
+      return (
+        <Column
+          key={i}
+          field={col.field}
+          header={col.header}
+          sortable={col.sortable}
+          style={col.style}
+          body={col.body}
+        />
+      );
+    });
+
+    return (
+      <div>
+        <DataTable
+          value={this.state.data}
+          resizableColumns={true}
+          columnResizeMode="expand"
+          reorderableColumns={false}
+          reorderableRows={false}
+          responsive={true}
+          scrollable={true}
+          loading={this.state.loading}
+          totalRecords={this.state.totalSize}
+          // sortField={this.state.sortField}
+          // sortOrder={this.state.sortOrder}
+          // onSort={this.onSort}
+        >
+          <Column
+            body={this.actionTemplate}
+            style={{ textAlign: 'center', width: '6em' }}
+          />        
+          {columns}
+        </DataTable>       
       </div>
     );
   }
 }
 
-export default HomeTable;
+export default withRouter(HomeTable);

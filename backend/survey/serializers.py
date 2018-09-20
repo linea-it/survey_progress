@@ -5,6 +5,7 @@ class ExposureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exposure
         fields = (
+            'id',
             'pfw_attempt_id',
             'nite',
             'expnum',

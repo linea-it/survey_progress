@@ -10,3 +10,8 @@
 .home-table {
   min-height: 200px;
 }
+
+.aladin-container {
+  min-height: 400px;
+  min-width: 400px;
+}
