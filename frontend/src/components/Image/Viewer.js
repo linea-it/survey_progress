@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Elevation } from '@blueprintjs/core'
 import 'primeflex/primeflex.css';
-import {initFirefly} from 'firefly-api-access';
 import './Viewer.css';
 import {Toolbar} from 'primereact/toolbar';
 import { Button } from 'primereact/button';
@@ -18,10 +17,6 @@ class ImageViewer extends Component {
   }
 
   componentDidMount() {
-    console.log("Viewer Mount")
-
-    console.log("firefly: ", window.firefly)
-
     if (window.firefly && window.flag) {
       window.firefly.showImage('plotHere', {
         URL      : 'http://web.ipac.caltech.edu/staff/roby/demo/wise-m31-level1-3.fits',
@@ -50,9 +45,6 @@ class ImageViewer extends Component {
 
   showImage =()=> {
     // console.log(this.start_firefly)
-    console.log("ShowImage")
-    console.log(window.firefly)
-
 
     // window.firefly.showImage('plotHere', {
     //   URL      : 'http://web.ipac.caltech.edu/staff/roby/demo/wise-m31-level1-3.fits',
@@ -81,7 +73,6 @@ class ImageViewer extends Component {
   }
 
   onBack = () => {
-    console.log('onBack')
     // this.props.view_asteroid(asteroid_id);
     const history = this.props.history;
     history.push({ pathname: `/` });    

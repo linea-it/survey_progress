@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Cell, Column, Table, RegionCardinality } from "@blueprintjs/table";
+import { Column } from "@blueprintjs/table";
 import {DataTable} from 'primereact/datatable'; 
 import { Button } from 'primereact/button';
 import {ExposureApi} from './ExposureApi';
