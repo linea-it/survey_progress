@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash'
 import sizeMe from 'react-sizeme'
 import {desfootprint} from './DesFootprint';
 import {ExposureApi} from './ExposureApi';
-class HomePlot extends Component {
+class ExposurePosition extends Component {
   api = new ExposureApi();
   constructor(props){
     super(props);
@@ -28,8 +28,8 @@ class HomePlot extends Component {
 
   get aladinOptions() {
     return {
-      fov:8,
-      // fov:180,
+      // fov:8,
+      fov:180,
       // target: '02 23 11.851 -09 40 21.59',
       target: '06 12 46.187 -45 45 15.40',
       cooFrame: 'J2000',
@@ -62,13 +62,18 @@ class HomePlot extends Component {
     this.create_aladin();
 
     // Load CCDs:
-    this.api.getExposures({}).then(res => {
+    this.api.getExposures({pageSize:1}).then(res => {
       const r = res.data;
 
-      // this.plot_ccds([r.results[0]])
-      this.plot_ccds(r.results)
+      this.plot_exposures(r.results)
       this.aladin.gotoRaDec([r.results[0].ra_cent, r.results[0].dec_cent]);
-      // console.log(r.results[0])
+
+      // Draw CCds
+      this.api.getExposures({}).then(res => {
+        const r = res.data;
+        this.plot_ccds(r.results)
+      });
+
     });
   }
 
@@ -130,17 +135,39 @@ class HomePlot extends Component {
     }
   }
 
-  plot_ccds=(ccds=[], name='teste')=>{
-    console.log("plot_ccds")
-
+  plot_exposures=(exposures=[], name="Exposures")=> {
     const aladin = this.aladin;
 
-    let catalog = this.libA.catalog({
-      name: 'Teste2',
-      sourceSize: 10,
-      color:'#e67e22'
-    });
+    // Verificar se os ccds ja foram plotados
+    let overlay = this.getOverlayByName(name);
+    if (overlay) {
+      // Se ja existir exibir
+      overlay.show();
+    } else {
+      // Se nao existir criar 
+      overlay = this.libA.graphicOverlay({
+        color: '#f75e00',
+        lineWidth: 1,
+        name: String(name)
+      })
 
+      aladin.addOverlay(overlay);
+
+      exposures.forEach((item)=>{
+
+        const ra = 93.191183
+        const dec = -45.764164
+
+        // const exposure = this.libA.circle(item.ra_cent, item.dec_cent, 2.2,{});
+        const exposure = this.libA.circle(ra, dec, 1.1,{});
+        overlay.add(exposure);
+      })
+    }
+  }
+
+  plot_ccds=(ccds=[], name='CCDs')=>{
+
+    const aladin = this.aladin;
 
     // Verificar se os ccds ja foram plotados
     let overlay = this.getOverlayByName(name);
@@ -165,29 +192,6 @@ class HomePlot extends Component {
           [item.rac1, item.decc1],        
         ];
 
-        // catalog.addSources([
-        //   this.libA.marker(
-        //     item.ra_cent,
-        //     item.dec_cent,{popupTitle: 'RAC_Cent',popupDesc: 'CCD: ' + item.ccdnum}
-        //     ),
-        //   // this.libA.marker(
-        //   //   item.rac1,
-        //   //   item.decc1,{popupTitle: 'RAC1',popupDesc: item.rac1 + ', ' + item.decc1}
-        //   //   ),
-        //   // this.libA.marker(
-        //   //   item.rac2,
-        //   //   item.decc2,{popupTitle: 'RAC2',popupDesc: item.rac2 + ', ' + item.decc2}
-        //   //   ),
-        //   // this.libA.marker(
-        //   //   item.rac3,
-        //   //   item.decc3,{popupTitle: 'RAC3',popupDesc: item.rac3 + ', ' + item.decc3}
-        //   //   ),         
-        //   // this.libA.marker(
-        //   //   item.rac4,
-        //   //   item.decc4,{popupTitle: 'RAC4',popupDesc: item.rac4 + ', ' + item.decc4}
-        //   //   )
-        //   ]);
-        // aladin.addCatalog(catalog);
         overlay.add(this.libA.polygon(tPath));
       })
     }
@@ -223,5 +227,5 @@ class HomePlot extends Component {
   }
 }
 
-export default sizeMe({ monitorHeight: false, monitorWidth: true })(HomePlot);
+export default sizeMe({ monitorHeight: false, monitorWidth: true })(ExposurePosition);
 // export default HomePlot;

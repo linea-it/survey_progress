@@ -11,6 +11,17 @@ from .serializers import ExposureSerializer
 class ExposureViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (AllowAny,)
+    queryset = Exposure.objects.order_by('expnum')
+    serializer_class = ExposureSerializer
+    filter_fields = ('id', 'expnum', 'nite',)
+    search_fields = ('id', 'expnum', 'nite')
+    ordering_fields = ('nite', 'expnum','ccdnum')
+    ordering = ('-nite','expnum', 'ccdnum')
+
+
+class CCDViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (AllowAny,)
     queryset = Exposure.objects.all()
     serializer_class = ExposureSerializer
     filter_fields = ('id', 'expnum', 'nite',)

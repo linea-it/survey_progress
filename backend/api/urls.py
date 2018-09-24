@@ -20,10 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.routers import DefaultRouter
 
-from survey.views import ExposureViewSet
+from survey.views import ExposureViewSet, CCDViewSet
 
 router = DefaultRouter()
 router.register(r'exposure', ExposureViewSet)
+router.register(r'ccd', CCDViewSet)
 
 # urlpatterns = router.urls
 

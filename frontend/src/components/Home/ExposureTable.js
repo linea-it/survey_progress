@@ -4,17 +4,22 @@ import { Column } from "@blueprintjs/table";
 import {DataTable} from 'primereact/datatable'; 
 import { Button } from 'primereact/button';
 import {ExposureApi} from './ExposureApi';
-
-class HomeTable extends Component {
+import PropTypes from 'prop-types';
+class ExposureTable extends Component {
   state = this.initialState;
   api = new ExposureApi();
+
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    history: PropTypes.any.isRequired,
+  };
 
   get initialState() {
     return {
       data:[],
       totalSize: 0,
       page: 1,
-      sizePerPage: 10,
+      sizePerPage: 1,
       loading: false,
       sortField: 'nite',
       sortOrder: 1,      
@@ -33,20 +38,20 @@ class HomeTable extends Component {
       sortable: true,
     },    
     {
-      field: 'ccdnum',
-      header: 'CCD',
-      sortable: true,
-    },    
-    {
       field: 'band',
       header: 'Band',
       sortable: true,
-    },        
+    },
     {
-      field: 'path',
-      header: 'Filename',
+      field: 'ra_cent',
+      header: 'RA',
       sortable: true,
-    },    
+    },
+    {
+      field: 'dec_cent',
+      header: 'Dec',
+      sortable: true,
+    }
   ]
 
   componentDidMount() {
@@ -72,11 +77,11 @@ class HomeTable extends Component {
     console.log('onView', row_id)
     // this.props.view_asteroid(asteroid_id);
     const history = this.props.history;
-    history.push({ pathname: `/image/${row_id}` });    
+    history.push({ pathname: `/exposure/${row_id}` });    
   };
 
   actionTemplate = rowData => {
-    const row_id = rowData.id;
+    const row_id = rowData.expnum;
     let btn_view = null;
 
     btn_view = (
@@ -140,4 +145,4 @@ class HomeTable extends Component {
   }
 }
 
-export default withRouter(HomeTable);
+export default withRouter(ExposureTable);

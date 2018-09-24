@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, FormGroup, MenuItem} from '@blueprintjs/core'
 import { DateRangeInput } from "@blueprintjs/datetime";
 import moment from "moment";
+import { Alignment, Checkbox, Label, Switch } from "@blueprintjs/core";
+
 class HomeForm extends Component {
   state = this.initialState;
 
@@ -36,7 +38,7 @@ class HomeForm extends Component {
   render() {
     return (
       <div>
-        <FormGroup
+        {/* <FormGroup
           label="Date Period"
           labelFor="inp-date-period"
         >
@@ -49,13 +51,7 @@ class HomeForm extends Component {
             <option value="4">Year</option>
           </select>
         </div>      
-          {/* <InputGroup id="inp-date-period" placeholder="Placeholder text" /> */}
-          {/* <Select id="inp-date-period" 
-            items={[{data:'1', text:'teste'}]}
-            itemRenderer={this.itemRenderer}
-            >
-          </Select> */}
-        </FormGroup>
+        </FormGroup> */}
         
         <FormGroup
           label="Date Range"
@@ -69,6 +65,19 @@ class HomeForm extends Component {
             onChange={this.handleChangeInterval}
           />
         </FormGroup>
+
+        <FormGroup
+          label="Band"
+          labelFor="inp-band"
+        >      
+
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="g" defaultIndeterminate={false} />
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="r" defaultIndeterminate={false} />
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="i" defaultIndeterminate={false} />
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="z" defaultIndeterminate={false} />
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="Y" defaultIndeterminate={false} />
+        </FormGroup>
+
         <Button>Submit</Button>
       </div>
     );

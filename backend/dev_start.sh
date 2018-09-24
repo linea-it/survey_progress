@@ -5,6 +5,6 @@ docker run -it --rm --name survey_progress_backend \
     --volume $PWD/../log/:/log \
     --volume $PWD/../archive/:/archive \
     --env-file $PWD/../.env \
-    --network surveyprogress_survey \
+    --network survey_progress_survey \
     survey_progress_backend
 

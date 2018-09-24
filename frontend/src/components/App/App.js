@@ -9,6 +9,7 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import {initFirefly} from 'firefly-api-access';
+import Exposure from 'components/Home/Exposure'
 class App extends Component {
 
   state = this.initialState;
@@ -44,6 +45,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/about" component={About} />
+              <Route path="/exposure/:expnum" component={Exposure} />
               <Route path="/image" component={ImageViewer} />
             </Switch>
             </BrowserRouter>
