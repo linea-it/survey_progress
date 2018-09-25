@@ -24,7 +24,6 @@ class App extends Component {
     const url= 'http://200.156.254.5:8080/firefly/';
     const getFireflyAPI= initFirefly(url); // return a function that can retrieve the Firelfy API
     getFireflyAPI().then( (firefly) => { // call the function to retrieve API, return a promise with Firefly
-      console.log("Firefly: ", firefly)
       window.firefly = firefly;
       window.flag = true
       this.setState({firefly: firefly})

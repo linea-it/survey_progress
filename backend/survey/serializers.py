@@ -1,9 +1,28 @@
 from rest_framework import serializers
-from .models import Exposure
+from .models import Exposure, CCD
 
 class ExposureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exposure
+        fields = (
+            'id', 
+            'date_obs', 
+            'nite', 
+            'expnum', 
+            'band', 
+            'radeg', 
+            'decdeg', 
+            'filename', 
+            'filetype', 
+            'exptime', 
+            'airmass',
+            'humidity',
+            'pressure',
+        )
+
+class CCDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CCD
         fields = (
             'id',
             'pfw_attempt_id',
@@ -30,4 +49,4 @@ class ExposureSerializer(serializers.ModelSerializer):
             'path',
             'filename',
             'downloaded',
-        )
+        )        

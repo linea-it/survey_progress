@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash'
 import sizeMe from 'react-sizeme'
 import {desfootprint} from './DesFootprint';
 import {ExposureApi} from './ExposureApi';
-class CCDPoisition extends Component {
+class CCDPosition extends Component {
   api = new ExposureApi();
   constructor(props){
     super(props);
@@ -28,10 +28,10 @@ class CCDPoisition extends Component {
 
   get aladinOptions() {
     return {
-      fov:8,
+      fov:4.5,
       // fov:180,
       // target: '02 23 11.851 -09 40 21.59',
-      target: '06 12 46.187 -45 45 15.40',
+      target: '01 25 10.33 +03 12 16.72',
       cooFrame: 'J2000',
       survey: "P/DSS2/color",
       showReticle: true,
@@ -57,24 +57,35 @@ class CCDPoisition extends Component {
   }
 
   componentDidMount=()=>{
-    console.log("Depois do component estar renderizado")
+    // console.log("Depois do component estar renderizado")
 
     this.create_aladin();
 
-    // Load CCDs:
-    this.api.getExposures({}).then(res => {
+    // // Load CCDs:
+    const filters = [{
+      property: 'expnum',
+      value: this.props.expnum
+    }]
+    this.api.getCCDsByExposure({filters:filters}).then(res => {
       const r = res.data;
-
-      // this.plot_ccds([r.results[0]])
       this.plot_ccds(r.results)
-      this.aladin.gotoRaDec([r.results[0].ra_cent, r.results[0].dec_cent]);
+      // this.aladin.gotoRaDec([r.results[0].ra_cent, r.results[0].dec_cent]);
       // console.log(r.results[0])
-    });
+
+      this.api.getExposures({filters:filters}).then(res => {
+        const r = res.data;
+  
+        this.aladin.gotoObject(r.results[0].radeg+', '+r.results[0].decdeg)
+      });
+
+    });    
+
   }
 
   componentDidUpdate=()=>{
-    console.log("Depois do componente ter atualizado")
+    //  console.log("Depois do componente ter atualizado")
     // const aladin = this.create_aladin();
+
   }
 
   create_aladin =()=>{
@@ -135,13 +146,6 @@ class CCDPoisition extends Component {
 
     const aladin = this.aladin;
 
-    let catalog = this.libA.catalog({
-      name: 'Teste2',
-      sourceSize: 10,
-      color:'#e67e22'
-    });
-
-
     // Verificar se os ccds ja foram plotados
     let overlay = this.getOverlayByName(name);
     if (overlay) {
@@ -165,29 +169,6 @@ class CCDPoisition extends Component {
           [item.rac1, item.decc1],        
         ];
 
-        // catalog.addSources([
-        //   this.libA.marker(
-        //     item.ra_cent,
-        //     item.dec_cent,{popupTitle: 'RAC_Cent',popupDesc: 'CCD: ' + item.ccdnum}
-        //     ),
-        //   // this.libA.marker(
-        //   //   item.rac1,
-        //   //   item.decc1,{popupTitle: 'RAC1',popupDesc: item.rac1 + ', ' + item.decc1}
-        //   //   ),
-        //   // this.libA.marker(
-        //   //   item.rac2,
-        //   //   item.decc2,{popupTitle: 'RAC2',popupDesc: item.rac2 + ', ' + item.decc2}
-        //   //   ),
-        //   // this.libA.marker(
-        //   //   item.rac3,
-        //   //   item.decc3,{popupTitle: 'RAC3',popupDesc: item.rac3 + ', ' + item.decc3}
-        //   //   ),         
-        //   // this.libA.marker(
-        //   //   item.rac4,
-        //   //   item.decc4,{popupTitle: 'RAC4',popupDesc: item.rac4 + ', ' + item.decc4}
-        //   //   )
-        //   ]);
-        // aladin.addCatalog(catalog);
         overlay.add(this.libA.polygon(tPath));
       })
     }
@@ -200,7 +181,7 @@ class CCDPoisition extends Component {
 
     if (overlays.length > 0) {
         overlays.forEach(function (item) {
-            if (item.name == name) {
+            if (item.name === name) {
                 result = item;
             }
         });
@@ -217,11 +198,13 @@ class CCDPoisition extends Component {
       height = width / 2;
     }
 
+    console.log(this.props.size)
+
     return (
       <div id={this.id} className="aladin-container" style={{width:width, height:height}}></div>
     );
   }
 }
 
-export default sizeMe({ monitorHeight: false, monitorWidth: true })(CCDPoisition);
+export default sizeMe({ monitorHeight: false, monitorWidth: true })(CCDPosition);
 // export default HomePlot;

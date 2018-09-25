@@ -14,3 +14,8 @@ WHERE expnum in (
     SELECT expnum FROM DES_ADMIN.Y3A1_EXPOSURE WHERE RADEG BETWEEN 19 AND 25 and DECDEG BETWEEN 2 and 4 and ROWNUM <= 5) 
 and filetype = 'red_immask'
 order by expnum, ccdnum;
+
+
+
+-- Import
+docker exec -it survey_progress_database_1 psql -h localhost -U postgres -c "\\copy survey_ccd from '/data/ccds_5.csv' DELIMITER ';' CSV HEADER"

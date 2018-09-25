@@ -60,7 +60,7 @@ class CCDTable extends Component {
       match: { params },
     } = this.props;
 
-    this.fetchData(this.state.page, this.state.sizePerPage, parseInt(params.expnum));
+    this.fetchData(this.state.page, this.state.sizePerPage, parseInt(params.expnum, 10));
   }
 
   fetchData = (page, sizePerPage, expnum) => {

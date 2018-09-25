@@ -1,6 +1,83 @@
 from django.db import models
 
+
 class Exposure(models.Model):
+
+    date_obs = models.CharField(
+        verbose_name='Observation Date', help_text='Date and time of observation',
+        null=True, blank=True,
+        max_length=256,
+    )
+
+    nite = models.DateField(
+        verbose_name="Night", help_text='Night at which the observation was made.',
+        null=True, blank=True
+    )
+
+    expnum = models.BigIntegerField(
+        verbose_name='Exposure',
+        help_text='Unique identifier for each image, same function as pfw_attenp_id (it also recorded in the file name)',
+        null=True, blank=True
+    )
+
+    band = models.CharField(
+        max_length=1,
+        verbose_name='Filter', help_text='Filter used to do the observation (u, g, r, i, z, Y).',
+        choices=(('u', 'u'), ('g', 'g'), ('r', 'r'), ('i', 'i'), ('z', 'z'), ('Y', 'Y'))
+    )
+
+    radeg = models.FloatField(
+        verbose_name='RA',
+        null=True, blank=True
+    )
+
+    decdeg = models.FloatField(
+        verbose_name='DEC',
+        null=True, blank=True
+    )
+
+    filename = models.CharField(
+        max_length=256,
+        verbose_name='Filename', help_text='Name of FITS file with a CCD image.',
+        null=True, blank=True
+    )
+    filetype = models.CharField(
+        max_length=256,
+        verbose_name='Filetype',
+        null=True, blank=True
+    )
+    exptime = models.FloatField(
+        verbose_name='Exposure time', help_text='Exposure time of observation.',
+        null=True, blank=True
+    )
+    airmass = models.FloatField(
+        verbose_name='Airmass',
+        null=True, blank=True
+    )
+    humidity = models.FloatField(
+        verbose_name='Humidity',
+        null=True, blank=True
+    )
+    pressure = models.FloatField(
+        verbose_name='Pressure',
+        null=True, blank=True
+    )    
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['expnum']),
+            models.Index(fields=['expnum', 'band']),
+            models.Index(fields=['nite']),
+            # models.Index(fields=['date_obs']),
+            models.Index(fields=['radeg']),
+            models.Index(fields=['decdeg']),
+        ]
+
+    def __str__(self):
+        return str(self.id)
+
+
+class CCD(models.Model):
     pfw_attempt_id = models.BigIntegerField(
         verbose_name='Image Id', help_text='Unique identifier for each image (1 image is composed by 62 CCDs)')
 

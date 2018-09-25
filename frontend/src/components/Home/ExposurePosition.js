@@ -29,9 +29,9 @@ class ExposurePosition extends Component {
   get aladinOptions() {
     return {
       // fov:8,
-      fov:180,
+      fov:100,
       // target: '02 23 11.851 -09 40 21.59',
-      target: '06 12 46.187 -45 45 15.40',
+      // target: '06 12 46.187 -45 45 15.40',
       cooFrame: 'J2000',
       survey: "P/DSS2/color",
       showReticle: true,
@@ -57,29 +57,31 @@ class ExposurePosition extends Component {
   }
 
   componentDidMount=()=>{
-    console.log("Depois do component estar renderizado")
+    // console.log("Depois do component estar renderizado")
 
     this.create_aladin();
 
-    // Load CCDs:
-    this.api.getExposures({pageSize:1}).then(res => {
-      const r = res.data;
-
-      this.plot_exposures(r.results)
-      this.aladin.gotoRaDec([r.results[0].ra_cent, r.results[0].dec_cent]);
-
-      // Draw CCds
-      this.api.getExposures({}).then(res => {
-        const r = res.data;
-        this.plot_ccds(r.results)
-      });
-
-    });
   }
 
   componentDidUpdate=()=>{
-    console.log("Depois do componente ter atualizado")
-    // const aladin = this.create_aladin();
+    // console.log("Depois do componente ter atualizado")
+
+    // Load CCDs:
+    this.api.getExposures({}).then(res => {
+      const r = res.data;
+
+      this.plot_exposures(r.results)
+      // this.aladin.gotoRaDec([r.results[0].radeg, r.results[0].decdeg]);
+
+      // Draw CCds
+      // this.api.getExposures({}).then(res => {
+      //   const r = res.data;
+      //   this.plot_ccds(r.results)
+      // });
+
+      this.aladin.gotoObject(r.results[0].radeg+', '+r.results[0].decdeg)
+
+    });
   }
 
   create_aladin =()=>{
@@ -154,12 +156,8 @@ class ExposurePosition extends Component {
       aladin.addOverlay(overlay);
 
       exposures.forEach((item)=>{
-
-        const ra = 93.191183
-        const dec = -45.764164
-
         // const exposure = this.libA.circle(item.ra_cent, item.dec_cent, 2.2,{});
-        const exposure = this.libA.circle(ra, dec, 1.1,{});
+        const exposure = this.libA.circle(item.radeg, item.decdeg, 1.1,{});
         overlay.add(exposure);
       })
     }
@@ -204,7 +202,7 @@ class ExposurePosition extends Component {
 
     if (overlays.length > 0) {
         overlays.forEach(function (item) {
-            if (item.name == name) {
+            if (item.name === name) {
                 result = item;
             }
         });
@@ -227,5 +225,5 @@ class ExposurePosition extends Component {
   }
 }
 
-export default sizeMe({ monitorHeight: false, monitorWidth: true })(ExposurePosition);
-// export default HomePlot;
+export default sizeMe({ monitorHeight: true, monitorWidth: true })(ExposurePosition);
+

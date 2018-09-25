@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, FormGroup, MenuItem} from '@blueprintjs/core'
 import { DateRangeInput } from "@blueprintjs/datetime";
 import moment from "moment";
-import { Alignment, Checkbox, Label, Switch } from "@blueprintjs/core";
+import { Alignment, Checkbox } from "@blueprintjs/core";
 
 class HomeForm extends Component {
   state = this.initialState;
@@ -70,7 +70,7 @@ class HomeForm extends Component {
           label="Band"
           labelFor="inp-band"
         >      
-
+          <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="u" defaultIndeterminate={false} />
           <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="g" defaultIndeterminate={false} />
           <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="r" defaultIndeterminate={false} />
           <Checkbox alignIndicator={Alignment.LEFT} disabled={false} inline={true} large={false} label="i" defaultIndeterminate={false} />

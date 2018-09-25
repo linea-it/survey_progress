@@ -19,7 +19,7 @@ class ExposureTable extends Component {
       data:[],
       totalSize: 0,
       page: 1,
-      sizePerPage: 1,
+      sizePerPage: 100,
       loading: false,
       sortField: 'nite',
       sortOrder: 1,      
@@ -43,12 +43,12 @@ class ExposureTable extends Component {
       sortable: true,
     },
     {
-      field: 'ra_cent',
+      field: 'radeg',
       header: 'RA',
       sortable: true,
     },
     {
-      field: 'dec_cent',
+      field: 'decdeg',
       header: 'Dec',
       sortable: true,
     }
