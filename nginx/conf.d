@@ -6,6 +6,9 @@ upstream react {
     server frontend:8082;
 }
 
+upstream iipsrv {
+    server iipserver:9000;
+}
 
 server {
 
@@ -46,6 +49,19 @@ server {
         add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
         expires off;
         proxy_no_cache 1;
+    }
+
+
+    location /iipserver {
+        fastcgi_pass    iipsrv;
+        fastcgi_param   PATH_INFO $fastcgi_script_name;
+        fastcgi_param   REQUEST_METHOD $request_method;
+        fastcgi_param   QUERY_STRING $query_string;
+        fastcgi_param   CONTENT_TYPE $content_type;
+        fastcgi_param   CONTENT_LENGTH $content_length;
+        fastcgi_param   SERVER_PROTOCOL $server_protocol;
+        fastcgi_param   REQUEST_URI $request_uri;
+        fastcgi_param   HTTPS $https if_not_empty;
     }
 
     location / {

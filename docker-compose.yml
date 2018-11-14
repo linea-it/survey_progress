@@ -45,6 +45,23 @@ services:
     networks:
        - survey
 
+  iipserver:
+    build: ./iipimage
+    volumes:
+      - ./tiff:/images
+      - ./iipimage/start_fcgi.sh:/iipsrv/start_fcgi.sh
+    environment:
+      - LOGFILE=/tmp/iipsrv.log
+      - VERBOSITY=10
+      - FILESYSTEM_PREFIX=/images/
+      - MAX_IMAGE_CACHE_SIZE=10
+      - MAX_CVT=3000
+      - JPEG_QUALITY=90
+      - CORS=*
+    command: sh start_fcgi.sh
+    networks:
+       - survey
+
   nginx:
     image: nginx:latest
     ports:
