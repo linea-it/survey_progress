@@ -10,6 +10,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import {initFirefly} from 'firefly-api-access';
 import Exposure from 'components/Home/Exposure'
+import VisiomaticPanel from 'components/Visiomatic/Panel'
 class App extends Component {
 
   state = this.initialState;
@@ -46,6 +47,7 @@ class App extends Component {
               <Route path="/about" component={About} />
               <Route path="/exposure/:expnum" component={Exposure} />
               <Route path="/image" component={ImageViewer} />
+              <Route path="/visiomatic" component={VisiomaticPanel} />
             </Switch>
             </BrowserRouter>
           </div>
