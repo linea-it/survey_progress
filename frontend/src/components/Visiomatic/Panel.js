@@ -46,6 +46,11 @@ class VisiomaticPanel extends Component {
       position: 'topright'
     }).addTo(map);
 
+    var url = 'https://desportal.cosmology.illinois.edu:8080/visiomatic?FIF=data/releases/desarchive/OPS/multiepoch/Y3A1/r2577/DES0223-1958/p01/qa/DES0223-1958_r2577p01.ptif&CNT=0.7&GAM=0.3571&CTW=-0.17360014137426552,-0.1468986152782014,-0.17360014137426552,0.4748051237315408,0.8680007068713278,0;-0.17360014137426552,0.11278933738126469,0.8680007068713278,0.11278933738126469,-0.17360014137426552,0;0.8680007068713278,0.4748051237315408,-0.17360014137426552,-0.1468986152782014,-0.17360014137426552,0&JTL=3,15'
+
+    const layer = this.libL.tileLayer.iip(url, {}).addTo(map)
+
+
   }
 
   componentWillUnmount() {
